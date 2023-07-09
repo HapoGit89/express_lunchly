@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Customers{% endblock %}
+{% block customerSearch %}
+<form class="form-inline my-2 my-lg-0" action="/search" method="POST">
+  <input class="form-control mr-sm-2" name="searchWord" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+{% endblock %}
 {% block content %}
 
 <a class="btn btn-primary" style="float: right" href="/add/">Add a Customer</a></p>

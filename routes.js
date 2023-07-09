@@ -9,6 +9,7 @@ const router = new express.Router();
 
 /** Homepage: show list of customers. */
 
+
 router.get("/", async function(req, res, next) {
   try {
     const customers = await Customer.all();
@@ -88,6 +89,18 @@ router.post("/:id/edit/", async function(req, res, next) {
     return next(err);
   }
 });
+
+router.post("/search/", async function( req, res, next){
+  try {
+    const searchWord = req.body.searchWord
+    const customers = await Customer.search(searchWord.toString())
+    return res.render("customer_list.html", { customers });
+    
+  }
+  catch (err){
+    next (err)
+  }
+})
 
 /** Handle adding a new reservation. */
 

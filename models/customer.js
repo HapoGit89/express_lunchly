@@ -53,6 +53,30 @@ class Customer {
     return new Customer(customer);
   }
 
+  static async search(key){
+    const results = await db.query(
+      `SELECT id, 
+         first_name AS "firstName",  
+         last_name AS "lastName", 
+         phone, 
+         notes
+       FROM customers
+       ORDER BY last_name, first_name`
+    );
+    const resultsObj = results.rows.map(c => new Customer(c));
+    
+    const matches = []
+    resultsObj.forEach(function (e){
+      if (e.firstName.toLowerCase().includes(key.toLowerCase()) || e.lastName.toLowerCase().includes(key.toLowerCase())){
+        matches.push(e)
+      }
+      
+    })
+
+    return matches
+
+  }
+
   /** get all reservations for this customer. */
 
   async getReservations() {
